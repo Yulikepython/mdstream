@@ -1,7 +1,7 @@
 // src/components/MarkdownDetail.tsx
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { marked } from "marked";
 import { fetchMarkdownDetail } from "../services/api";
 import styles from "../styles/MarkdownDetail.module.scss";
@@ -26,6 +26,15 @@ const MarkdownDetail: React.FC = () => {
 
     return (
         <div className={styles.mdDetailContainer}>
+            {/* --- パンくず: "List > {slug}" --- */}
+            <nav style={{ marginBottom: "0.5rem", fontSize: "0.9rem" }}>
+                <Link to="/" style={{ marginRight: "0.5rem", color: "#007bff" }}>
+                    List
+                </Link>
+                {" > "}
+                <span style={{ marginLeft: "0.5rem" }}>{slug}</span>
+            </nav>
+
             <h2>Detail: {slug}</h2>
             <div
                 className={styles.mdContent}
