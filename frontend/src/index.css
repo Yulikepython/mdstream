@@ -13,6 +13,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ----------------------------------------
+   1) 全体レイアウト設定 (ヘッダー上部・フッター下部固定)
+---------------------------------------- */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* フッターを下部に固定するため */
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Viteの #root に100%の高さを与え、
+   flexコンテナ化して、ヘッダー・メイン・フッターを縦に並べる */
+
+#root {
+  height:100%;
+  display: flex;
+  flex-direction: column;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -22,13 +42,6 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 h1 {
   font-size: 3.2em;

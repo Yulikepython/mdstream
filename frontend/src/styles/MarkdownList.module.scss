@@ -1,0 +1,16 @@
+/* src/styles/MarkdownList.module.scss */
+
+@use './global' as *;
+/*
+   `as *` とすることで、_global.scss の placeholderを「このファイルに取り込む」形に
+   → `%md-list-container` を直接 @extend できる
+*/
+
+.mdListContainer {
+  @extend %md-list-container;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
+}
