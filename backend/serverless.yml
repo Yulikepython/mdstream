@@ -1,0 +1,56 @@
+service: mdstream-backend
+org: itcmedia
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-northeast-1
+  stage: ${opt:stage, 'dev'}
+
+  environment:
+    BUCKET_NAME: ${env:BUCKET_NAME}   # 1つのS3バケット
+    # ↓ stage (dev/prod) に応じて、custom.prefixes / custom.allowedReferers から値を取得
+    S3_PREFIX: ${self:custom.prefixes.${self:provider.stage}}
+    ALLOWED_REFERER: ${self:custom.allowedReferers.${self:provider.stage}}
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:ListBucket"
+        - "s3:GetObject"
+      Resource:
+        - "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}"
+        - "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}/*"
+
+functions:
+  getMarkdownList:
+    handler: dist/handler.getMarkdownList
+    events:
+      - httpApi:
+          path: /markdown/list
+          method: get
+          cors: true
+  getMarkdownDetail:
+    handler: dist/handler.getMarkdownDetail
+    events:
+      - httpApi:
+          path: /markdown/{slug}
+          method: get
+          cors: true
+
+plugins:
+  - serverless-offline
+
+
+custom:
+  dotenv:
+    path: .env.${self:provider.stage}
+  # stageごとに異なるディレクトリを設定
+  prefixes:
+    dev: dev/
+    prod: prod/
+
+  # stageごとに許可するリファラを設定 (複数あればカンマ区切り）
+  allowedReferers:
+    dev: "localhost:5173, dev.mydomain.com"
+    prod: "mydomain.com"
