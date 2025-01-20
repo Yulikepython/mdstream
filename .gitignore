@@ -5,6 +5,7 @@
 .idea/
 dist/
 .serverless/
+coverage/
 
 mdstream_project_summary.txt
 
