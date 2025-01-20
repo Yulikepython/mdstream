@@ -64,10 +64,12 @@ jobs:
 
           if [ "${{ github.ref_name }}" = "develop" ]; then
             echo "Deploying to dev stage..."
+            export ALLOWED_REFERER="${{ secrets.ALLOWED_REFERER_DEV }}"
             npm run deploy:dev   # 例) package.json: "deploy:dev": "serverless deploy --stage dev"
 
           elif [ "${{ github.ref_name }}" = "main" ]; then
             echo "Deploying to prod stage..."
+            export ALLOWED_REFERER="${{ secrets.ALLOWED_REFERER_PROD }}"
             npm run deploy:prod  # 例) package.json: "deploy:prod": "serverless deploy --stage prod"
 
           else
