@@ -1,5 +1,8 @@
 # mdstream (English)
 
+## Link
+[日本語版はこちら](./README.ja.md)
+
 mdstream is a sample project consisting of a **React (Vite) + TypeScript** frontend and a **Serverless Framework (Node.js)** backend. It uses AWS S3 to store Markdown files and fetches them via HTTP APIs for listing and detail views in the web application.
 
 ## Overview

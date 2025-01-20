@@ -1,10 +1,5 @@
-## 目次
-
-1. [README（日本語版）](#readme日本語版)
-2. [README (English Version)](#readme-english-version)
-3. [ファイル保存例](#ファイル保存例)
-
----
+## リンク
+- [README (English Version)](./README.md)
 
 ## README（日本語版）
 
