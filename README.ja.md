@@ -1,14 +1,9 @@
-## リンク
-- [README (English Version)](./README.md)
-
-## README（日本語版）
-
-以下は `README.ja.md` などのファイル名で配置することを想定した例です。
-
-```md
 # mdstream (日本語版)
 
 mdstream は、React (Vite) + TypeScript を使用したフロントエンドと、Serverless Framework (Node.js) を使用したバックエンドで構成されたサンプルプロジェクトです。MarkdownファイルをS3に保存し、それをWebアプリケーションで一覧・詳細表示する仕組みになっています。
+
+## リンク
+- [README (English Version)](./README.md)
 
 ## プロジェクト概要
 
