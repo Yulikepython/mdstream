@@ -6,7 +6,8 @@
   "scripts": {
     "dev:local": "cross-env VITE_API_BASE_URL=http://localhost:3000 vite",
     "dev:remote": "env-cmd -f .env.dev vite",
-    "build": "tsc -b && vite build",
+    "build:dev": "tsc -b && vite build --mode dev",
+    "build:prod": "tsc -b && vite build --mode prod",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "echo 'No tests yet' && exit 0"
