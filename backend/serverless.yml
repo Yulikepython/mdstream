@@ -26,7 +26,7 @@ provider:
   environment:
     BUCKET_NAME: ${env:BUCKET_NAME}     # S3バケット名 (ローカルなら .env.dev など、CI/CD は secrets)
     S3_PREFIX: ${self:custom.prefixes.${self:provider.stage}}
-    ALLOWED_REFERER: ${self:custom.allowedReferers.${self:provider.stage}}
+    ALLOWED_REFERER: ${env:ALLOWED_REFERER}
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -64,7 +64,3 @@ custom:
   prefixes:
     dev: dev/
     prod: prod/
-
-  allowedReferers:
-    dev: "localhost:5173, dev.mydomain.com"
-    prod: "mydomain.com"
