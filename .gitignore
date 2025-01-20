@@ -4,6 +4,7 @@
 !frontend/.env.local
 .idea/
 dist/
+.serverless/
 
 mdstream_project_summary.txt
 

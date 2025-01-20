@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev:local": "cross-env VITE_API_BASE_URL=http://localhost:3000 vite",
+    "dev:remote": "env-cmd -f .env.dev vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "echo 'No tests yet' && exit 0"
   },
   "dependencies": {
     "marked": "^15.0.6",
@@ -24,6 +26,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "cross-env": "^7.0.3",
     "dompurify": "^3.2.3",
+    "env-cmd": "^10.1.0",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",

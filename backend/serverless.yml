@@ -7,9 +7,24 @@ provider:
   region: ap-northeast-1
   stage: ${opt:stage, 'dev'}
 
+  httpApi:
+    cors:
+      allowedOrigins:
+        - "*"
+      allowedMethods:
+        - GET
+        - OPTIONS
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowCredentials: false
+
+  # ======== 環境変数の読み込み方針 ========
+  # 1) .env.{stage} or system env
+  # 2) CI/CD パイプラインであれば、GitHub Actions (もしくは他のサービス) の secrets を
+  #    process.env.* として注入する
   environment:
-    BUCKET_NAME: ${env:BUCKET_NAME}   # 1つのS3バケット
-    # ↓ stage (dev/prod) に応じて、custom.prefixes / custom.allowedReferers から値を取得
+    BUCKET_NAME: ${env:BUCKET_NAME}     # S3バケット名 (ローカルなら .env.dev など、CI/CD は secrets)
     S3_PREFIX: ${self:custom.prefixes.${self:provider.stage}}
     ALLOWED_REFERER: ${self:custom.allowedReferers.${self:provider.stage}}
 
@@ -29,28 +44,27 @@ functions:
       - httpApi:
           path: /markdown/list
           method: get
-          cors: true
+
   getMarkdownDetail:
     handler: dist/handler.getMarkdownDetail
     events:
       - httpApi:
           path: /markdown/{slug}
           method: get
-          cors: true
 
 plugins:
   - serverless-offline
 
-
 custom:
+  # デプロイ時に .env.{stage} を読み込み (ローカルのみ)
+  # CI/CD では通常 secrets を環境変数に注入することで対応
   dotenv:
     path: .env.${self:provider.stage}
-  # stageごとに異なるディレクトリを設定
+
   prefixes:
     dev: dev/
     prod: prod/
 
-  # stageごとに許可するリファラを設定 (複数あればカンマ区切り）
   allowedReferers:
     dev: "localhost:5173, dev.mydomain.com"
     prod: "mydomain.com"

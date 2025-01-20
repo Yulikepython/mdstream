@@ -1,0 +1,75 @@
+name: CI/CD for Backend
+
+on:
+  # --------------------------
+  # pull_request:
+  #   => PRが作られたとき → テストのみ
+  # --------------------------
+  pull_request:
+    branches: [develop, main]
+
+  # --------------------------
+  # push:
+  #   => develop, main に push
+  #      → デプロイ (stageを切り替え)
+  # --------------------------
+  push:
+    branches: [develop, main]
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      # (1) コード取得
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # (2) Node セットアップ
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # (3) 依存関係インストール
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm ci
+
+      # (4) テスト実行
+      #     → pull_request / push 両方で実行
+      - name: Run tests
+        run: |
+          cd backend
+          npm run test
+
+      # (5) AWS認証 (push時のみ)
+      - name: Configure AWS Credentials
+        if: ${{ github.event_name == 'push' }}
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # (6) デプロイ (develop→dev, main→prod)
+      - name: Deploy
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          cd backend
+          # Secrets から必要な変数を export
+          export BUCKET_NAME="${{ secrets.BUCKET_NAME }}"
+          export AWS_REGION="${{ secrets.AWS_REGION }}"
+
+          if [ "${{ github.ref_name }}" = "develop" ]; then
+            echo "Deploying to dev stage..."
+            npm run deploy:dev   # 例) package.json: "deploy:dev": "serverless deploy --stage dev"
+
+          elif [ "${{ github.ref_name }}" = "main" ]; then
+            echo "Deploying to prod stage..."
+            npm run deploy:prod  # 例) package.json: "deploy:prod": "serverless deploy --stage prod"
+
+          else
+            echo "Not on develop or main => Skip"
+          fi
