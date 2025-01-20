@@ -1,0 +1,16 @@
+/* src/styles/MarkdownDetail.module.scss */
+
+@use './global' as *;
+
+.mdDetailContainer {
+  @extend %md-detail-container;
+}
+
+.mdContent {
+  @extend %md-content;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
+}

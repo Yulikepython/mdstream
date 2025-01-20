@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev:local": "npm run build && env-cmd -f .env.local serverless offline --stage dev",
+    "deploy:dev": "npm run build && env-cmd -f .env.dev serverless deploy --stage dev",
+    "deploy:prod": "npm run build && env-cmd -f .env.prod serverless deploy --stage prod",
+    "test": "echo 'No tests yet' && exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.731.1",
+    "@aws-sdk/crc64-nvme-crt": "^3.731.0",
+    "serverless": "^4.4.19"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.147",
+    "@types/node": "^22.10.7",
+    "env-cmd": "^10.1.0",
+    "serverless-offline": "^14.4.0",
+    "typescript": "^5.7.3"
+  }
+}

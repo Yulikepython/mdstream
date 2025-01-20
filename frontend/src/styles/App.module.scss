@@ -1,0 +1,54 @@
+/* App.module.scss */
+
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* ----------------------------------------
+   2) Header (画面上部に固定)
+---------------------------------------- */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  /* 固定したいなら position: fixed; top: 0; を使うが
+     その場合 bodyにpadding-topを入れるなど調整が必要
+     ここでは通常のフロー内の最上部に置く例 */
+}
+
+/* ----------------------------------------
+   3) Main (メインコンテンツ) flex:1 で伸縮
+---------------------------------------- */
+main {
+  flex: 1;
+  padding: 1rem 2rem;
+  /* 背景などお好みで */
+  background-color: #f9f9f9;
+  color: #333;
+
+  /* メインコンテンツを中央寄せにしたい場合 */
+  /* max-width: 1200px;
+   margin: 0 auto; */
+}
+
+/* ----------------------------------------
+   4) Footer (画面下部へ貼り付く)
+---------------------------------------- */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+
+/* ----------------------------------------
+   6) Utility Classes (任意)
+---------------------------------------- */
+.text-error {
+  color: red;
+}

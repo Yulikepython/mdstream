@@ -1,7 +1,17 @@
+# my custom
+*/.env.*
+!*/.env.sample
+!frontend/.env.local
+.idea/
+dist/
+.serverless/
+
+mdstream_project_summary.txt
+
 /tmp
 /out-tsc
 
-/node_modules
+*/node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
