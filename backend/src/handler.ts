@@ -4,8 +4,8 @@ import { S3Client, ListObjectsV2Command, GetObjectCommand } from "@aws-sdk/clien
 import { Readable } from "stream";
 
 const bucketName = process.env.BUCKET_NAME!;
-const s3Prefix = process.env.S3_PREFIX!;         // ← dev/ or prod/
-const allowedReferers = process.env.ALLOWED_REFERER!;  // ← カンマ区切り文字列
+const s3Prefix = process.env.S3_PREFIX!;
+const allowedReferers = process.env.ALLOWED_REFERER || "http://localhost:5173";  // ← カンマ区切り文字列
 const s3Client = new S3Client({ region: process.env.AWS_REGION || "ap-northeast-1" });
 
 // 複数リファラ対応（カンマ区切り）
