@@ -7,7 +7,7 @@
     "dev:local": "npm run build && env-cmd -f .env.local serverless offline --stage dev",
     "deploy:dev:local": "npm run build && env-cmd -f .env.dev serverless deploy --stage dev",
     "deploy:dev": "npm run build && serverless deploy --stage dev",
-    "deploy:prod": "npm run build && env-cmd -f .env.prod serverless deploy --stage prod",
+    "deploy:prod": "npm run build && serverless deploy --stage prod",
     "test": "jest --coverage"
   },
   "keywords": [],
